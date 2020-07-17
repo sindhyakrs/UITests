@@ -1,8 +1,9 @@
 package autoapp.automation.pages;
 
-import autoapp.automation.utility.BrowserDriver;
+import autoapp.automation.utility.BaseUtil;
 import cucumber.api.DataTable;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
@@ -10,8 +11,10 @@ import java.util.Map;
 
 public class PersonalInfoPage extends BasePage{
 
-    public static String Mr_Id = "id_gender1";
-    public static String Mrs_Id = "id_gender2";
+    private WebDriver driver;
+
+    public String Mr_Id = "id_gender1";
+    public String Mrs_Id = "id_gender2";
     public static String firstname_Id = "customer_firstname";
     public static String lastname_Id = "customer_lastname";
     public static String password_Id = "passwd";
@@ -22,11 +25,12 @@ public class PersonalInfoPage extends BasePage{
     public static String mobile_Id = "phone_mobile";
     public static String register_xpath = "//span[contains(text(),'Register')]";
 
-    public PersonalInfoPage(BrowserDriver driver){
-        super(driver);
+    public PersonalInfoPage(BaseUtil baseUtil){
+        super(baseUtil);
+        this.driver = baseUtil.driver;
     }
 
-    public static void enterPersonalInformation(DataTable dataTable){
+    public void enterPersonalInformation(DataTable dataTable){
         List<Map<String,String>> personalInfo = dataTable.asMaps(String.class,String.class);
 
         if(personalInfo.get(0).get("Gender") == "Mr"){

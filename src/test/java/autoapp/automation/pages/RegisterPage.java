@@ -1,30 +1,34 @@
 package autoapp.automation.pages;
 
-import autoapp.automation.utility.BrowserDriver;
+import autoapp.automation.utility.BaseUtil;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 
 public class RegisterPage extends BasePage{
 
-    public static String signIn_xpath = "//a[@title='Log in to your customer account']";
-    public static String email_id = "email_create";
-    public static String createAccount_xpath = "//form[@id='create-account_form']//span[1]";
+    private WebDriver driver;
+    public String signIn_xpath = "//a[@title='Log in to your customer account']";
+    public String email_id = "email_create";
+    public String createAccount_xpath = "//form[@id='create-account_form']//span[1]";
 
-    public RegisterPage(BrowserDriver driver) {
-        super(driver);
+    public RegisterPage(BaseUtil baseUtil) {
+        super(baseUtil);
+        this.driver = baseUtil.driver;
     }
 
-    public static void openApplicaiton() {
+    public void openApplicaiton() {
         driver.navigate().to("http://automationpractice.com/index.php");
         driver.manage().window().maximize();
     }
 
-    public static void clickSignIn() {
+    public void clickSignIn() {
         driver.findElement(By.xpath(signIn_xpath)).click();
     }
 
-    public static void createAccount(String emailid) {
+    public void createAccount(String emailid) {
         emailid= emailid.replaceAll("Random", Integer.toString(generateRandomIntIntRange(00000, 99999)));
+        //emailid = "abc@gmail.com";
         driver.findElement(By.id(email_id)).sendKeys(emailid);
         driver.findElement(By.xpath(createAccount_xpath)).click();
     }
